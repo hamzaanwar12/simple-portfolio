@@ -1,0 +1,93 @@
+import React from "react";
+import { motion, time } from "framer-motion";
+import { del } from "framer-motion/client";
+
+function StairAnimation() {
+  const parentVariants = {
+    initial: {},
+    animate: {
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0
+      },
+    },
+  };
+  // const stairVariants = {
+  //     initial: {
+  //         y: "-100%",
+  //         // opacity: 0
+  //     },
+  //     animate: {
+  //         y: 0,
+  //         // opacity: 1,
+  //         transition: {
+  //             duration: 0.5,
+  //             // delayChildren: 1,
+  //             // staggerChildren: 2
+  //         }
+  //     },
+  //     exit: {
+  //         y: "-100%",
+  //         // opacity: 0,
+  //         transition: {
+  //             duration: 2
+  //         }
+  //     }
+  // }
+
+  const stairVariants = {
+    initial: {
+      y: "-100%",
+    },
+    animate: {
+      y: ["-100%", "0%"],
+    //   y: ["-100%", "0%", "0%", "-100%"],
+      transition: {
+        duration: 1,
+        times: [0, 0.3, 0.7, 1],
+        repeat:1,
+        repeatType: "reverse",
+        repeatDelay: 0.,
+        // delay: 0.25,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+//     const stairVariants = {
+//     initial: { y: "-100%" }, // Start off-screen
+//     animate: {
+//       y: ["-100%", "0%"], // Drop down, stay, then go up
+//       transition: {
+//         duration: 1.5, // Total time for animation
+//         times: [0, 0.3, 0.7, 1], // When each phase happens
+//         ease: "easeInOut",
+//         repeat: 1, // Plays once forward, then reverses
+//         repeatType: "reverse", // Repeats in reverse order
+//         repeatDelay: 1, // Holds before reversing
+//       },
+//     },
+//   };
+
+
+  const stairs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  return (
+    <motion.div
+      variants={parentVariants}
+      initial="initial"
+      animate="animate"
+      className="absolute top-0 left-0 flex  h-screen w-screen items-center overflow-hidden scrollbar-none"
+    >
+      {stairs.map((stair) => (
+        <motion.div
+          key={stair}
+          variants={stairVariants}
+          className="w-[10%] h-full bg-gray-800 "
+        ></motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
+export default StairAnimation;

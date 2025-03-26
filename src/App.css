@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+:root {
+  --hue: 200;
+  --sat: 50%;
+}
+
+@theme { 
+  --color-title: hsl(var(--hue), var(--sat), 20%);
+  --color-text: blue;
+}
+
+
+
+
+
+
+
+
+
+
+/* :root {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+} */
