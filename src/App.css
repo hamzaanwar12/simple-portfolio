@@ -1,27 +1,77 @@
 @import "tailwindcss";
 
+
+
 :root {
   --hue: 200;
   --sat: 50%;
 }
 
-@theme { 
+
+@theme {
+  --font-sans: "Poppins", sans-serif;
   --color-title: hsl(var(--hue), var(--sat), 20%);
   --color-text: blue;
-  --color-background: #a4a2a2fc
+  --color-background: #a4a2a2fc;
 }
 
 
 
 
+/* Define typewriter animations */
+@layer components {
 
+  .type-fruit {
+    --tw-typewriter-words: "apple", "banana", "orange", "pear", "strawberry";
+    --tw-typewriter-delay: 3s;
+  }
 
+  .type-vegetables {
+    --tw-typewriter-words: "carrot", "celery", "corn", "potato";
+    --tw-typewriter-pause-between: 5s;
+  }
 
-
-
+  .type-single {
+    --tw-typewriter-words: "Your clever phrase";
+    --tw-typewriter-repeat: 0;
+    --tw-typewriter-erase-speed: 0s;
+  }
+}
 
 /* :root {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
 } */
+
+
+
+
+@keyframes typing {
+  0% { width: 0% }
+  100% { width: 100% }
+}
+
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+.type-fruit::after {
+  content: "apple"; /* Default word */
+  animation: changeText 5s infinite, blink 0.8s infinite;
+  border-right: 2px solid white; /* Cursor effect */
+  padding-right: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  width: 0;
+  animation: typing 2s steps(10, end) forwards, blink 0.8s infinite;
+}
+
+@keyframes changeText {
+  0%, 20% { content: "Apple"; }
+  21%, 40% { content: "Banana"; }
+  41%, 60% { content: "Orange"; }
+  61%, 80% { content: "Pear"; }
+  81%, 100% { content: "Strawberry"; }
+}

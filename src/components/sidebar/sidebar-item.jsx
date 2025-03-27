@@ -28,7 +28,7 @@ function SideBaritem({ icon, title, to, handleSidebar }) {
         },
       }}
       onClick={handleClick}
-      className="flex items-center gap-4 text-white p-4"
+      className="font-sans  flex items-center gap-4 text-white p-4"
     >
       {icon}
       <span>{title}</span>

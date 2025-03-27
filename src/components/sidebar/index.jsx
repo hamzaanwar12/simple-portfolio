@@ -64,7 +64,7 @@ function Sidebar({ hideSidebar }) {
           AfterChildren: true,
         },
       }}
-      className="fixed w-screen h-screen bg-[#a4a2a2fc] scrollbar-none overflow-none"
+      className="font-sans fixed w-screen h-screen bg-[#a4a2a2fc] scrollbar-none overflow-none"
     >
       {/* <div className='z-100 relative bg-gray-800 w-64 gap-y-4 h-screen'> */}
       <motion.div
@@ -87,7 +87,7 @@ function Sidebar({ hideSidebar }) {
             stiffness: 120,
           },
         }}
-        className="bg-gray-800 w-42 md:w-48 lg:w-64 gap-y-4 h-screen"
+        className="font-sans  bg-gray-800 w-42 md:w-48 lg:w-64 gap-y-4 h-screen"
       >
         {routes.map((route, index) => (
           <SideBarItem

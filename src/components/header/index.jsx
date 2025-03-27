@@ -57,7 +57,7 @@ function Header({ isOpen, handleSidebar }) {
 
   return (
     // <div className="flex justify-between items-center p-4 bg-white shadow-md">
-    <motion.div className="flex items-center justify-between box-border p-4 bg-gray-800 shadow-md">
+    <motion.div className="font-sans flex items-center justify-between box-border p-4 bg-gray-800 shadow-md">
       {/* {!isOpen && <Logo />} */}
       <motion.h1
         initial={{
