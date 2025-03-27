@@ -38,7 +38,7 @@ function StairAnimation() {
   return (
     <div
       className="pointer-events-none
- absolute top-0 left-0 flex h-screen w-screen items-center overflow-hidden scrollbar-hide"
+ absolute top-0 left-0 flex h-full w-full items-center justify-center overflow-none"
     >
       {stairs.map((stair) => (
         <motion.div

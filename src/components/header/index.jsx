@@ -71,12 +71,10 @@ function Header({ isOpen, handleSidebar }) {
             delay: 2,
             duration: 0.5,
           },
-          
         }}
         className="text-white font-semibold cursor-pointer text-xl font-stretch-50%"
       >
-        {/* Muhammad Hamza{" "} */}
-        M Hamza{" "}
+        {/* Muhammad Hamza{" "} */}M Hamza{" "}
         <motion.span className="bg-cyan-400 w-[10px] h-[10px] rounded-full inline-block"></motion.span>
       </motion.h1>
 
@@ -97,7 +95,6 @@ function Header({ isOpen, handleSidebar }) {
             delay: 2,
             duration: 0.5,
           },
-          
         }}
       >
         <motion.div

@@ -3,6 +3,6 @@ import TypeWriter from "./TypeWriter";
 import Social from "./Social";
 import SocialIcon from "./SocialIcon";
 import TypingEffect from "./TypingEffect";
-
-export { Hero, TypeWriter, Social, SocialIcon, TypingEffect };
-
+import Photo from "./Photo";
+import Stats from "./Stats";
+export { Hero,Photo, Stats, TypeWriter, Social, SocialIcon, TypingEffect };

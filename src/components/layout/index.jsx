@@ -17,7 +17,6 @@ export default function Layout() {
 
   const hideSidebar = () => {
     setTimeout(() => setSidebar(false), 600);
-
   };
 
   return (
@@ -27,12 +26,12 @@ export default function Layout() {
         initial={{
           opacity: 0,
         }}
-        animate={{ opacity: 1 ,
+        animate={{
+          opacity: 1,
           transition: {
-            duration: 5,
+            duration: 7,
             ease: "easeInOut",
             type: "tween",
-
           },
           beforeChildren: true,
         }}
@@ -40,10 +39,9 @@ export default function Layout() {
           opacity: 0,
         }}
         transition={{
-          duration: 5,
+          duration: 3,
           ease: "easeInOut",
         }}
-        className="overflow-none h-screen w-screen "
       >
         <Header isOpen={sidebar} handleSidebar={handleSidebar} />
         {sidebar && <Sidebar hideSidebar={hideSidebar} />}
