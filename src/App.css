@@ -8,6 +8,7 @@
 @theme { 
   --color-title: hsl(var(--hue), var(--sat), 20%);
   --color-text: blue;
+  --color-background: #a4a2a2fc
 }
 
 

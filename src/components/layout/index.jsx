@@ -27,12 +27,20 @@ export default function Layout() {
         initial={{
           opacity: 0,
         }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 1 ,
+          transition: {
+            duration: 5,
+            ease: "easeInOut",
+            type: "tween",
+
+          },
+          beforeChildren: true,
+        }}
         exit={{
           opacity: 0,
         }}
         transition={{
-          duration: 3,
+          duration: 5,
           ease: "easeInOut",
         }}
         className="overflow-none h-screen w-screen "

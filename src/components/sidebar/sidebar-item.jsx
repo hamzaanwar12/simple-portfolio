@@ -1,11 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import {motion} from "framer-motion";
-
-function SideBaritem({ icon, title, to ,handleSidebar }) {
+import { motion } from "framer-motion";
+import { useLocation } from "react-router";
+function SideBaritem({ icon, title, to, handleSidebar }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const handleClick = (e) => {
     e.preventDefault();
+    if (to === location.pathname) {
+      handleSidebar();
+      return;
+    }
     navigate(to);
     handleSidebar();
   };

@@ -41,6 +41,7 @@ function Sidebar({ hideSidebar }) {
       icon: <IoIosContacts />,
     },
   ];
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -86,7 +87,7 @@ function Sidebar({ hideSidebar }) {
             stiffness: 120,
           },
         }}
-        className="bg-gray-800 w-64 gap-y-4 h-screen"
+        className="bg-gray-800 w-42 md:w-48 lg:w-64 gap-y-4 h-screen"
       >
         {routes.map((route, index) => (
           <SideBarItem
