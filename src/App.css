@@ -15,7 +15,7 @@
 @theme {
   --font-sans: "Poppins", sans-serif;
   --color-title: hsl(var(--hue), var(--sat), 20%);
-  --color-title-background: hsl(var(--hue), var(--sat), 0%);
+  --color-title-dark: hsl(var(--hue), var(--sat), 0%);
   --color-title-text: hsl(var(--hue), var(--sat), 46%);
   --color-text: blue;
   --color-background: #a4a2a2fc;

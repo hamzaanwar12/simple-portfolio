@@ -20,7 +20,7 @@ function TypeWriter() {
     >
       {roles.map((role, index) => (
         <React.Fragment key={index}>
-          <span className="text-title font-bold font-2xl">
+          <span className="text-title  font-xl">
             {role}
           </span>
           <Typist.Delay ms={900} />
