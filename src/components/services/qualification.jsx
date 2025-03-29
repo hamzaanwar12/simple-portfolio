@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Stats() {
+function Qualification() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function Stats() {
   )
 }
 
-export default Stats
+export default Qualification

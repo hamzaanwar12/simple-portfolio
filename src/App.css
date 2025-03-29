@@ -13,6 +13,7 @@
 
 
 @theme {
+  --breakpoint-xs: 400px;
   --font-sans: "Poppins", sans-serif;
   --color-title: hsl(var(--hue), var(--sat), 20%);
   --color-title-dark: hsl(var(--hue), var(--sat), 0%);

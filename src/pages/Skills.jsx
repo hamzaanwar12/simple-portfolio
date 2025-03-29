@@ -1,11 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import SkillPage from "../components/skills";
 function Skills() {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <SkillPage />
+    </>
+  );
 }
 
-export default Skills
+export default Skills;
