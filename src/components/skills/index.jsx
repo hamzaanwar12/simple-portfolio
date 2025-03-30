@@ -2,7 +2,9 @@ import SkillBox from "./skillBox";
 import SkillTag from "./skillTag";
 import SkillPart from "./skillPart";
 import { motion } from "framer-motion";
-import Services from  "../services/services";
+import Services from "../services/services";
+import { QualificationPage } from "../qualification";
+
 const SkillPage = () => {
   return (
     <motion.div className="mt-[4rem] flex flex-col  gap-y-[4rem] items-center">
@@ -12,6 +14,7 @@ const SkillPage = () => {
       </motion.div>
       <SkillPart></SkillPart>
       <Services></Services>
+      <QualificationPage></QualificationPage>
     </motion.div>
   );
 };
