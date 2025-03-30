@@ -1,11 +1,8 @@
-import ServiceBox from "./ServiceBox";
-import Services from "./Services";
-import ServiceModal from "./serviceModal";
 import SkillBox from "./skillBox";
 import SkillTag from "./skillTag";
 import SkillPart from "./skillPart";
 import { motion } from "framer-motion";
-
+import Services from  "../services/services";
 const SkillPage = () => {
   return (
     <motion.div className="mt-[4rem] flex flex-col  gap-y-[4rem] items-center">
@@ -20,4 +17,4 @@ const SkillPage = () => {
 };
 
 export default SkillPage;
-export { SkillPart, ServiceBox, ServiceModal, Services, SkillBox, SkillTag };
+export { SkillPart, SkillBox, SkillTag };
