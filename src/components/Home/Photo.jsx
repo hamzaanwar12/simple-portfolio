@@ -1,36 +1,31 @@
 import { motion } from "framer-motion";
 import checkSrc from "/assets/check.png";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { SideBarContext } from "../../context/sidebarContext";
+
 const Photo = () => {
   const [size, setSize] = useState(300); // Default size
-  const { sidebar } = useContext(SideBarContext);
+  // const { sidebar } = useContext(SideBarContext);
+
   useEffect(() => {
     const handleResize = () => {
-      //   if (window.innerWidth < 300) setSize(150);
-      //   else
       if (window.innerWidth < 400) setSize(225);
-      //   else if (window.innerWidth < 640) setSize(200);
-      //   else if (window.innerWidth < 768) setSize(250);
       else setSize(300);
-      //   console.log(window.innerWidth, size);
     };
-
+    
     handleResize(); // Call initially
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    console.log(window.innerWidth, size);
-  }, [size]);
+  // Calculate SVG viewBox size to match the image size
+  const viewBoxSize = 120; // Base viewBox size
+  const circleCenter = viewBoxSize / 2;
+  const circleRadius = circleCenter - 1; // Slight adjustment to keep circle inside bounds
 
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-      }}
+      initial={{ opacity: 0 }}
       animate={{
         opacity: 1,
         transition: {
@@ -40,27 +35,26 @@ const Photo = () => {
         },
         beforeChildren: true,
       }}
-      exit={{
-        opacity: 0,
-      }}
+      exit={{ opacity: 0 }}
       transition={{
         duration: 2,
         ease: "easeInOut",
       }}
-      className="relative "
+      className="relative flex items-center justify-center"
+      style={{ width: size, height: size }}
     >
       {/* Rotating Dotted Circle */}
       <motion.svg
-        className="absolute"
-        width={`${size}`} // Slightly larger than image
-        height={`${size}`}
-        viewBox="0 0 120 120"
+        className="absolute inset-0"
+        width={size}
+        height={size}
+        viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
+        preserveAspectRatio="xMidYMid meet"
       >
         <motion.circle
-          //   cx={`${size == 300 ? 60 : size==225 ? 59 : 55}`}
-          cx={`${size == 300 ? 60 : 59}`}
-          cy={`${size == 300 ? 60 : 59}`}
-          r={`${size == 300 ? 60 : 59}`} // Adjusted for better alignment
+          cx={circleCenter}
+          cy={circleCenter}
+          r={circleRadius}
           fill="transparent"
           stroke="hsl(200, 50%, 20%)"
           strokeWidth="1"
@@ -68,7 +62,7 @@ const Photo = () => {
           strokeLinecap="round"
           animate={{ rotate: 360 }}
           transition={{
-            duration: 10, // Faster rotation
+            duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
             type: "spring",
@@ -78,10 +72,14 @@ const Photo = () => {
 
       {/* Image */}
       <img
-        // className={`p-[2px] w-[${size!=150?size:75}px]  h-[${size!=150?size:75}px] object-cover rounded-full`}
-        className={`p-[2px] w-[${size}px]  h-[${size}px] object-cover rounded-full`}
+        className="object-cover rounded-full"
         src={checkSrc}
         alt=""
+        style={{ 
+          width: size - 4, // Account for padding
+          height: size - 4,
+          padding: "2px"
+        }}
       />
     </motion.div>
   );

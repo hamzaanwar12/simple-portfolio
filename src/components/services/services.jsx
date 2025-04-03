@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import { GiStack } from "react-icons/gi";
 import { FaServer } from "react-icons/fa";
 import { FaCode } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import ServiceCard from "./serviceCard";
-import ModalContent from "./ModalContent";
-function services() {
+import CommonPage from "../common";
+
+function Services() {
+  const servicesRef = useRef(null);
+  const isInView = useInView(servicesRef, { once: true, amount: 0.1 });
+
   const servicesTypes = [
     {
       title: "Frontend Development",
@@ -14,7 +18,7 @@ function services() {
         "Frontend development creates visually engaging, responsive user interfaces with HTML, CSS, and JavaScript, ensuring seamless interaction and aesthetic appeal across all devices while aligning with the brand's identity.",
       points: [
         "Creating visually appealing and user-friendly interfaces.",
-        "Ensuring websites work well on various devices like desktops, tablets, and mobiles.,",
+        "Ensuring websites work well on various devices like desktops, tablets, and mobiles.",
         "SPAs Developing dynamic web applications using frameworks like React, Angular, or Vue.js.",
         "Ensuring websites function correctly across different web browsers.",
       ],
@@ -44,28 +48,72 @@ function services() {
       ],
     },
   ];
+
+  // Card container variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  // Individual card variants
+  const cardVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+      },
+    },
+    hover: {
+      y: -10,
+      scale: 1.02,
+      boxShadow:
+        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10,
+      },
+    },
+  };
+
   return (
-    <motion.div className="my-[4rem] flex flex-col  gap-y-[6rem] items-center">
-      <motion.div className="max-h-[2.5rem] text-center  items-center justify-between">
-        <h1 className="text-gray-800  font-medium text-3xl">Services</h1>
-        <h3 className="text-gray-600 text-md">What I Offer</h3>
-      </motion.div>
-      <motion.div className="px-4 sm:px-2 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4 ">
-        {/* <motion.div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4"> */}
+    <CommonPage Heading={"Services"} SubHeading={"What I Offer"}>
+      <motion.div
+        ref={servicesRef}
+        className="px-4 sm:px-2 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
         {servicesTypes.map((service, index) => (
-          <ServiceCard
-            title={service.title}
-            icon={service.icon}
-            content={{
-              description: service.description,
-              points: service.points,
-            }}
+          <motion.div
             key={index}
-          />
+            variants={cardVariants}
+            whileHover="hover"
+            className="overflow-hidden"
+          >
+            <ServiceCard
+              title={service.title}
+              icon={service.icon}
+              content={{
+                description: service.description,
+                points: service.points,
+              }}
+            />
+          </motion.div>
         ))}
       </motion.div>
-    </motion.div>
+    </CommonPage>
   );
 }
 
-export default services;
+export default Services;

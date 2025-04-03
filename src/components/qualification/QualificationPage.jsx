@@ -1,10 +1,43 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
 function QualificationPage() {
   const [activeTab, setActiveTab] = useState("experience"); // Default selected tab
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const buttonRefs = useRef({});
+  const [buttonDimensions, setButtonDimensions] = useState({
+    education: { width: 0, left: 0 },
+    experience: { width: 0, left: 0 },
+  });
+
+  // Measure button positions and update on window resize
+  useEffect(() => {
+    const updateButtonDimensions = () => {
+      const parentRect = buttonRefs.current.parent?.getBoundingClientRect();
+      
+      if (!parentRect) return;
+      
+      const newDimensions = {};
+      
+      ['education', 'experience'].forEach(key => {
+        if (buttonRefs.current[key]) {
+          const rect = buttonRefs.current[key].getBoundingClientRect();
+          newDimensions[key] = {
+            width: rect.width,
+            left: rect.left - parentRect.left,
+          };
+        }
+      });
+      
+      setButtonDimensions(newDimensions);
+    };
+
+    updateButtonDimensions();
+    window.addEventListener('resize', updateButtonDimensions);
+    
+    return () => window.removeEventListener('resize', updateButtonDimensions);
+  }, []);
 
   const types = {
     education: "education",
@@ -98,24 +131,32 @@ function QualificationPage() {
 
       {/* Filter Buttons */}
       <motion.div 
-        className="flex gap-8 relative"
+        className="flex gap-4 md:gap-8 relative"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
+        ref={el => buttonRefs.current.parent = el}
       >
         {/* Background Animation */}
         <div className="absolute -z-10 top-0 left-0 h-full transition-all duration-300">
           <motion.div 
-            className="h-full w-32 bg-blue-100 rounded-md"
-            initial={{ x: activeTab === "education" ? 0 : 128 }}
-            animate={{ x: activeTab === "education" ? 0 : 128 }}
+            className="h-full bg-blue-100 rounded-md"
+            initial={{ 
+              x: buttonDimensions[activeTab]?.left || 0,
+              width: buttonDimensions[activeTab]?.width || 0
+            }}
+            animate={{ 
+              x: buttonDimensions[activeTab]?.left || 0,
+              width: buttonDimensions[activeTab]?.width || 0
+            }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           />
         </div>
         
         {/* Education button */}
         <motion.button
-          className={`px-4 py-2 font-medium transition-colors duration-300 z-10 ${
+          ref={el => buttonRefs.current.education = el}
+          className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${
             activeTab === "education" ? "text-blue-600" : "text-gray-600"
           }`}
           onClick={() => setActiveTab("education")}
@@ -127,7 +168,8 @@ function QualificationPage() {
         
         {/* Experience button */}
         <motion.button
-          className={`px-4 py-2 font-medium transition-colors duration-300 z-10 ${
+          ref={el => buttonRefs.current.experience = el}
+          className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${
             activeTab === "experience" ? "text-blue-600" : "text-gray-600"
           }`}
           onClick={() => setActiveTab("experience")}
@@ -235,3 +277,5 @@ const QualificationBox = ({ qualification, index, isInView }) => {
 };
 
 export default QualificationPage;
+
+export {QualificationBox}
