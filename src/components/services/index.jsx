@@ -1,5 +1,7 @@
 import ServiceCard from "./serviceCard";
 import Qualification from "./qualification";
 import ServiceModal from "../services/serviceModal";
+import Services from "./services";
 
-export { ServiceCard, ServiceModal, Qualification };
+
+export { Services, ServiceCard, ServiceModal, Qualification };

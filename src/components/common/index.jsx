@@ -43,7 +43,8 @@ function CommonPage({ Heading, SubHeading, children }) {
       variants={containerVariants}
       initial="hidden"
       animate={isInView || hasAnimated ? "visible" : "hidden"}
-      style={{ minHeight: "50vh" }} // Ensure minimum height even when content is animating
+      style={{ minHeight: "30vh" }} // Ensure minimum height even when content is animating
+      // style={{ minHeight: "50vh" }} // Ensure minimum height even when content is animating
     >
       <motion.div className="text-center">
         <motion.h1

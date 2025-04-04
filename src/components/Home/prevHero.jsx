@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { TypeWriter, Photo } from "./index";
 import { LuSend, LuArrowDown } from "react-icons/lu";
 import { useContext } from "react";
@@ -8,9 +8,10 @@ import { useInView } from "react-intersection-observer";
 
 function Hero() {
   const { sidebar } = useContext(SideBarContext);
+  const controls = useAnimation();
   const [ref, inView] = useInView({
     threshold: 0.5,
-    triggerOnce: true  // This ensures animations only trigger once
+    triggerOnce: false
   });
   const scrollRef = useRef(null);
 
@@ -69,6 +70,7 @@ function Hero() {
       {/* Text Content */}
       <motion.div 
         className="flex text-center md:text-left flex-col md:w-[50%]"
+        variants={containerVariants}
       >
         <motion.div 
           className="flex flex-col md:block gap-2 items-center md:items-start"
@@ -77,7 +79,6 @@ function Hero() {
           <motion.h1 
             className="font-semibold text-4xl md:text-5xl lg:text-6xl mb-2"
             whileHover={{ scale: 1.02 }}
-            variants={itemVariants}
           >
             M Hamza<span className="wave">👋</span>
           </motion.h1>
@@ -88,7 +89,7 @@ function Hero() {
             <motion.div 
               className="bg-title w-12 h-[3px]"
               initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
+              animate={{ scaleX: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
             />
             <TypeWriter />
@@ -132,8 +133,6 @@ function Hero() {
         <motion.div 
           className="md:w-[50%] flex justify-center"
           variants={photoVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
         >
           <Photo />
         </motion.div>
@@ -144,10 +143,10 @@ function Hero() {
         onClick={scrollToAbout}
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-title hover:text-title-dark cursor-pointer"
         initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { 
+        animate={{ 
           opacity: [0, 1, 1, 0],
           y: [20, 0, 0, 20]
-        } : { opacity: 0, y: 20 }}
+        }}
         transition={{ 
           duration: 2.5,
           repeat: Infinity,

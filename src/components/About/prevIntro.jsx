@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+// Enhanced Intro.jsx
+import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { FaFileAlt, FaDownload } from "react-icons/fa";
 import checkSrc from "/assets/check.png";
@@ -8,11 +9,10 @@ import { useInView } from "react-intersection-observer";
 
 function Intro() {
   const [isHovered, setIsHovered] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
   const controls = useAnimation();
   const [ref, inView] = useInView({
     threshold: 0.3,
-    triggerOnce: true  // This ensures the inView trigger only happens once
+    triggerOnce: false
   });
 
   // Text animation variants (word by word)
@@ -39,6 +39,8 @@ function Intro() {
       <motion.div 
         ref={ref}
         className="flex flex-col gap-y-[4rem] items-center"
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
       >
         {/* Profile Image - Spring animation from left */}
         <motion.div
@@ -82,8 +84,6 @@ function Intro() {
             <motion.span
               key={i}
               custom={i}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
               variants={textVariants}
               style={{ display: "inline-block", marginRight: "5px" }}
             >

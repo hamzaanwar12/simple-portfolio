@@ -1,10 +1,21 @@
-import Home from './Home';
-import About from './About';
-import Contact from './Contact';
-import NotFound from './NotFound';
-import Experience from './Experience';
-import Skills from './Skills';
-import Services from './Services';
+import { Hero } from "../components/Home";
+import { Intro } from "../components/About";
+import SkillPage from "../components/skills";
+import { Services } from "../components/services";
+import { QualificationPage } from "../components/qualification";
+import { Portfolio as PortfolioPage } from "../components/Potfolio";
+import Testimonials from "../components/Testimonials";
+import Contact from "../components/Contact";
+import Footer from "../components/Footer";
 
-
-export { Home, About, Contact, NotFound, Experience, Skills, Services };
+export {
+  Hero,
+  Intro,
+  SkillPage,
+  Services,
+  QualificationPage,
+  PortfolioPage,
+  Testimonials,
+  Contact,
+  Footer,
+};

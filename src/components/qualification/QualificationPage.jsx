@@ -140,7 +140,8 @@ function QualificationPage() {
         {/* Background Animation */}
         <div className="absolute -z-10 top-0 left-0 h-full transition-all duration-300">
           <motion.div 
-            className="h-full bg-blue-100 rounded-md"
+            // className="h-full bg-blue-100 rounded-md"
+            className="h-full bg-gray-200 rounded-md"
             initial={{ 
               x: buttonDimensions[activeTab]?.left || 0,
               width: buttonDimensions[activeTab]?.width || 0
@@ -156,9 +157,11 @@ function QualificationPage() {
         {/* Education button */}
         <motion.button
           ref={el => buttonRefs.current.education = el}
-          className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${
-            activeTab === "education" ? "text-blue-600" : "text-gray-600"
-          }`}
+          // className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${
+          //   activeTab === "education" ? "text-blue-600" : "text-gray-600"
+          // }`}
+          className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${"text-gray-600"
+}`}
           onClick={() => setActiveTab("education")}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -169,8 +172,10 @@ function QualificationPage() {
         {/* Experience button */}
         <motion.button
           ref={el => buttonRefs.current.experience = el}
-          className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${
-            activeTab === "experience" ? "text-blue-600" : "text-gray-600"
+          // className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${
+          //   activeTab === "experience" ? "text-blue-600" : "text-gray-600"
+          // }`}
+          className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${"text-gray-500"
           }`}
           onClick={() => setActiveTab("experience")}
           whileHover={{ scale: 1.05 }}
@@ -232,7 +237,8 @@ const QualificationBox = ({ qualification, index, isInView }) => {
     >
       {/* Content */}
       <motion.div 
-        className={`w-[45%] p-4 border-l-2 border-blue-400 bg-white rounded-md shadow-md`}
+        // className={`w-[45%] p-4 border-l-2 border-blue-400 bg-white rounded-md shadow-md`}
+        className={`w-[45%] p-4 border-l-2 border-gray-500 bg-white rounded-md shadow-md`}
         initial={{ opacity: 0, height: 0 }}
         animate={isInView ? { 
           opacity: 1, 
@@ -255,7 +261,8 @@ const QualificationBox = ({ qualification, index, isInView }) => {
           {qualification.placeName}
         </motion.p>
         <motion.p 
-          className="text-sm text-blue-500 mt-2"
+          // className="text-sm text-blue-500 mt-2"
+          className="text-sm text-gray-400 mt-2"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1, transition: { delay: 1.2 + (index * 0.2) } } : {}}
         >
@@ -265,7 +272,8 @@ const QualificationBox = ({ qualification, index, isInView }) => {
       
       {/* Bullet point */}
       <motion.div 
-        className="absolute left-1/2 top-5 w-4 h-4 bg-blue-500 rounded-full -translate-x-1/2 z-10"
+        // className="absolute left-1/2 top-5 w-4 h-4 bg-blue-500 rounded-full -translate-x-1/2 z-10"
+        className="absolute left-1/2 top-5 w-4 h-4 bg-gray-500 rounded-full -translate-x-1/2 z-10"
         initial={{ scale: 0 }}
         animate={isInView ? { 
           scale: 1,

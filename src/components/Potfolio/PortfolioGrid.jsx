@@ -97,7 +97,7 @@ const PortfolioGrid = () => {
       thumbnail: FinanceThumb,
       video: FinanceVideo,
       technologies: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
-      demoLink: "#",
+      demoLink: "",
       features: [
         "Responsive design optimized for all devices",
         "Interactive financial data visualization",
@@ -163,7 +163,6 @@ const PortfolioGrid = () => {
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-     
       {/* Filter Buttons - Updated to be responsive */}
       <motion.div
         className="flex justify-center gap-4 md:gap-8 relative mb-12"
@@ -175,7 +174,8 @@ const PortfolioGrid = () => {
         {/* Background Animation */}
         <div className="absolute -z-10 top-0 left-0 h-full transition-all duration-300">
           <motion.div
-            className="h-full bg-blue-100 rounded-md"
+            // className="h-full bg-blue-100 rounded-md"
+            className="h-full bg-gray-200 rounded-md"
             initial={{
               x: buttonDimensions[activeTab]?.left || 0,
               width: buttonDimensions[activeTab]?.width || 0,
@@ -193,9 +193,10 @@ const PortfolioGrid = () => {
           <motion.button
             key={key}
             ref={(el) => (buttonRefs.current[key] = el)}
-            className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${
-              activeTab === key ? "text-blue-600" : "text-gray-600"
-            }`}
+            // className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${
+            //   activeTab === key ? "text-blue-600" : "text-gray-600"
+            // }`}
+            className={`px-3 py-2 md:px-4 md:py-2 font-medium transition-colors duration-300 z-10 whitespace-nowrap ${"text-gray-500"}`}
             onClick={() => setActiveTab(key)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
