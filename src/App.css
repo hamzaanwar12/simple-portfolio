@@ -25,6 +25,8 @@
 
 
 
+
+
 /* Define typewriter animations */
 @layer components {
 
@@ -51,6 +53,17 @@
   box-sizing: border-box;
 } */
 
+
+
+
+/* Add this CSS to your global styles to hide scrollbars but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 
 

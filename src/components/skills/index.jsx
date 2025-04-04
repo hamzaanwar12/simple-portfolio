@@ -8,6 +8,7 @@ import { Portfolio as PortfolioPage } from "../Potfolio";
 import CommonPage from "../common";
 import Testimonials from "../Testimonials";
 import Contact from "../Contact";
+import Footer from "../Footer";
 // import PortfolioPage
 const SkillPage = () => {
   return (
@@ -27,9 +28,10 @@ const SkillPage = () => {
       <Services></Services>
       <QualificationPage></QualificationPage>
       <PortfolioPage></PortfolioPage>
-      <Testimonials></Testimonials>
-      <Contact></Contact>
+    <Testimonials></Testimonials>
       {/* <Testimonials></Testimonials> */}
+      <Contact></Contact>
+      <Footer></Footer>
     </CommonPage>
   );
 };

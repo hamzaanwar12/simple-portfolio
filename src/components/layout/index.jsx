@@ -23,7 +23,8 @@ export default function Layout() {
   // };
 
   return (
-    <AnimatePresence location={location} mode="wait">
+    // <AnimatePresence location={location} mode="wait">
+    <AnimatePresence location={location} >
       <StairAnimation key={location.pathname} />
       <motion.div
         initial={{
