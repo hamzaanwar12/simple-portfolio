@@ -121,7 +121,7 @@ const ContactSection = () => {
       ),
       title: 'LinkedIn',
       value: 'M Hamza',
-      link: 'https://linkedin.com/in/mhamza',
+      link: 'https://www.linkedin.com/in/hamza-anwar-40b60a247/',
       color: 'indigo'
     }
   ];
