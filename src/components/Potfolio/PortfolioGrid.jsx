@@ -80,7 +80,7 @@ const PortfolioGrid = () => {
       thumbnail: ShoppyThumb,
       video: ShoppyVideo,
       technologies: ["React", "Material UI", "Chart.js", "Tailwind CSS"],
-      demoLink: "#",
+      demoLink: "https://shoppydashboard-hamzas-projects-d264f21b.vercel.app/",
       features: [
         "Responsive design for all devices",
         "Interactive data visualization",
@@ -97,7 +97,7 @@ const PortfolioGrid = () => {
       thumbnail: FinanceThumb,
       video: FinanceVideo,
       technologies: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
-      demoLink: "",
+      demoLink: "https://finance-website-lake.vercel.app/",
       features: [
         "Responsive design optimized for all devices",
         "Interactive financial data visualization",
@@ -114,7 +114,7 @@ const PortfolioGrid = () => {
       thumbnail: ShowroomThumb,
       video: ShowroomVideo,
       technologies: ["Next.js", "TypeScript", "Tailwind CSS", "RapidAPI"],
-      demoLink: "#",
+      demoLink: "https://car-showroom-website.vercel.app/",
       features: [
         "Advanced search and filtering system",
         "Server-side rendering for better performance",
@@ -139,7 +139,7 @@ const PortfolioGrid = () => {
         "JWT",
         "Cloudinary",
       ],
-      demoLink: "#",
+      demoLink: "https://full-stack-ecommerce-website-lilac.vercel.app/",
       features: [
         "Product catalog with search and filtering",
         "User authentication and authorization",

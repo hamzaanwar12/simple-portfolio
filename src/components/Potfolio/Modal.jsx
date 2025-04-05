@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdOutlineCancel } from "react-icons/md";
-import ModalContent from "./ModalContent";
+
 
 const Modal = ({ isOpen, onClose, title, content }) => {
   // Handle ESC key press to close modal
