@@ -1,7 +1,10 @@
 # Logs
 
+# add .env in it
 
+# Local env files
 .env
+.env.local
 
 
 logs
