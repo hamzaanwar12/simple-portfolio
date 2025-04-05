@@ -1,13 +1,31 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { GiStack } from "react-icons/gi";
 import { FaServer, FaCode } from "react-icons/fa";
 import { motion, useInView } from "framer-motion";
 import ServiceCard from "./serviceCard";
 import CommonPage from "../common";
+import Modal from "./serviceModal";
 
 function Services() {
   const servicesRef = useRef(null);
   const isInView = useInView(servicesRef, { once: true, amount: 0.1 });
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    title: "",
+    content: null
+  });
+
+  const openModal = (title, content) => {
+    setModalState({
+      isOpen: true,
+      title,
+      content
+    });
+  };
+
+  const closeModal = () => {
+    setModalState(prev => ({ ...prev, isOpen: false }));
+  };
 
   const servicesTypes = [
     {
@@ -101,10 +119,19 @@ function Services() {
                 points: service.points,
               }}
               index={index}
+              openModal={openModal}
             />
           </motion.div>
         ))}
       </motion.div>
+
+      {/* Single Modal for all service cards */}
+      <Modal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        title={modalState.title}
+        modalContent={modalState.content}
+      />
     </CommonPage>
   );
 }

@@ -1,15 +1,14 @@
-import React, { useState, memo, useRef } from "react";
+import React, { memo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
-import Modal from "./serviceModal";
 
-const ServiceCard = memo(({ icon, title, content, index }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const ServiceCard = memo(({ icon, title, content, index, openModal }) => {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true });
   
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const handleOpenModal = () => {
+    openModal(title, content);
+  };
 
   // Icon hover animation variants - this will happen every time on hover
   const iconVariants = {
@@ -96,7 +95,7 @@ const ServiceCard = memo(({ icon, title, content, index }) => {
       </motion.h1>
       
       <motion.button
-        onClick={openModal}
+        onClick={handleOpenModal}
         className="flex items-center text-gray-500 font-medium text-[18px] group"
         whileHover="hover"
       >
@@ -108,16 +107,6 @@ const ServiceCard = memo(({ icon, title, content, index }) => {
           <MdOutlineArrowRightAlt className="text-xl" />
         </motion.div>
       </motion.button>
-
-      {/* Only render Modal when needed */}
-      {isOpen && (
-        <Modal
-          isOpen={isOpen}
-          onClose={closeModal}
-          title={title}
-          modalContent={content}
-        />
-      )}
     </motion.div>
   );
 });
