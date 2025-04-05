@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import emailjs from '@emailjs/browser';
+import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL;
+console.log(API_URL);
 
 const ContactSection = () => {
-  // For animation
+  // For animation - triggerOnce ensures the animation only happens once when it first enters the viewport
   const [formRef, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
@@ -32,29 +35,21 @@ const ContactSection = () => {
     message: ''
   };
 
-  // Handle form submission
+  // Handle form submission with API integration using Axios
   const handleSubmit = async (values, { setSubmitting, resetForm, setStatus }) => {
     setStatus({ submitting: true, submitted: false, error: null });
 
     try {
-      // Example EmailJS setup - uncomment and replace with your actual service IDs
-      // const result = await emailjs.send(
-      //   'YOUR_SERVICE_ID',
-      //   'YOUR_TEMPLATE_ID',
-      //   {
-      //     from_name: values.name,
-      //     reply_to: values.email,
-      //     message: values.message
-      //   },
-      //   'YOUR_PUBLIC_KEY'
-      // );
-
-      // Simulate successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // API call to backend using Axios
+      const response = await axios.post(`${API_URL}/api/send-mail`, {
+        name: values.name,
+        email: values.email,
+        message: values.message
+      });
       
       // Clear form
       resetForm();
-      setStatus({ submitting: false, submitted: true, error: null });
+      setStatus({ submitting: false, submitted: true, error: null, message: response.data.message });
       
       // Reset form status after 5 seconds
       setTimeout(() => {
@@ -63,25 +58,32 @@ const ContactSection = () => {
       
     } catch (error) {
       console.error('Form submission error:', error);
-      setStatus({ submitting: false, submitted: false, error: 'Failed to send message. Please try again.' });
+      const errorMessage = error.response?.data?.message || 
+                           'Failed to send message. Please try again.';
+      setStatus({ 
+        submitting: false, 
+        submitted: false, 
+        error: errorMessage
+      });
     } finally {
       setSubmitting(false);
     }
   };
 
-  // Animation variants
+  // Enhanced animation variants with more pronounced entrance effects
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.2,
+        when: "beforeChildren"
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -89,6 +91,21 @@ const ContactSection = () => {
         type: "spring",
         stiffness: 260,
         damping: 20
+      }
+    }
+  };
+
+  // Special animation for the section title
+  const titleVariants = {
+    hidden: { y: -20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 15,
+        delay: 0.2
       }
     }
   };
@@ -150,56 +167,63 @@ const ContactSection = () => {
   return (
     <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-5"
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={containerVariants}
+          ref={formRef}
+        >
           {/* Left Column - Talk To Me */}
           <motion.div
-            className="flex flex-col space-y-2"
-            initial="hidden"
-            animate="visible"
+            className="flex flex-col space-y-4"
             variants={containerVariants}
           >
+            <motion.h2 
+              className="text-gray-800 font-medium text-3xl mb-6 text-center md:text-left"
+              variants={titleVariants}
+            >
+              Talk to Me
+            </motion.h2>
 
-
-              {contactOptions.map((option) => (
-                <motion.div
-                  key={option.id}
-                  className={`bg-white border border-gray-100 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300`}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 10 } }}
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className={`bg-${option.color}-100 p-2 rounded-full mb-4`}>
-                      {option.icon}
-                    </div>
-                    <h3 className="font-medium text-gray-900">{option.title}</h3>
-                    <p className="text-gray-600">{option.value}</p>
-                    <motion.a
-                      href={option.link}
-                      className={`mt-1 text-gray-600 inline-flex items-center text-${option.color}-600 hover:text-${option.color}-800`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Write Me 
-                      <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                      </svg>
-                    </motion.a>
+            {contactOptions.map((option, index) => (
+              <motion.div
+                key={option.id}
+                className={`bg-white border border-gray-100 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300`}
+                variants={itemVariants}
+                custom={index}
+                whileHover={{ scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className={`bg-${option.color}-100 p-2 rounded-full mb-4`}>
+                    {option.icon}
                   </div>
-                </motion.div>
-              ))}
+                  <h3 className="font-medium text-gray-900">{option.title}</h3>
+                  <p className="text-gray-600">{option.value}</p>
+                  <motion.a
+                    href={option.link}
+                    className={`mt-1 text-gray-600 inline-flex items-center text-${option.color}-600 hover:text-${option.color}-800`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Write Me 
+                    <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                  </motion.a>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Right Column - Contact Form */}
           <motion.div
-            ref={formRef}
             className="flex flex-col"
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
             variants={containerVariants}
           >
             <motion.h2 
-              className="text-gray-800 font-medium text-3xl  mb-6 text-center md:text-left"
-              variants={itemVariants}
+              className="text-gray-800 font-medium text-3xl mb-6 text-center md:text-left"
+              variants={titleVariants}
             >
               Write Me your Project
             </motion.h2>
@@ -216,13 +240,14 @@ const ContactSection = () => {
                       key={field.id} 
                       className="relative"
                       variants={itemVariants}
+                      custom={index}
                     >
                       <motion.label 
                         htmlFor={field.id}
                         className="block text-sm font-medium text-gray-500 mb-1"
                         initial={{ x: -10, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: index * 0.1 }}
+                        transition={{ delay: index * 0.1 + 0.3 }}
                       >
                         {field.label}
                       </motion.label>
@@ -303,7 +328,7 @@ const ContactSection = () => {
               )}
             </Formik>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -327,7 +352,7 @@ const AnimatedFeedback = ({ status }) => {
           <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
           </svg>
-          <span>Message sent successfully! I'll get back to you soon.</span>
+          <span>{status.message || "Message sent successfully! I'll get back to you soon."}</span>
         </div>
       ) : (
         <div className="flex items-center">
