@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { GiStack } from "react-icons/gi";
-import { FaServer } from "react-icons/fa";
-import { FaCode } from "react-icons/fa";
+import { FaServer, FaCode } from "react-icons/fa";
 import { motion, useInView } from "framer-motion";
 import ServiceCard from "./serviceCard";
 import CommonPage from "../common";
@@ -13,7 +12,7 @@ function Services() {
   const servicesTypes = [
     {
       title: "Frontend Development",
-      icon: <FaCode className="text-4xl" />,
+      icon: <FaCode className="text-5xl" />,
       description:
         "Frontend development creates visually engaging, responsive user interfaces with HTML, CSS, and JavaScript, ensuring seamless interaction and aesthetic appeal across all devices while aligning with the brand's identity.",
       points: [
@@ -25,7 +24,7 @@ function Services() {
     },
     {
       title: "Backend Development",
-      icon: <FaServer className="text-4xl" />,
+      icon: <FaServer className="text-5xl" />,
       description:
         "Backend development involves creating server-side logic, APIs, and databases with Python, Java, and Node.js, ensuring performance, security, and scalability for efficient data handling and frontend integration.",
       points: [
@@ -37,7 +36,7 @@ function Services() {
     },
     {
       title: "Full Stack Development",
-      icon: <GiStack className="text-4xl" />,
+      icon: <GiStack className="text-5xl" />,
       description:
         "Full stack development merges frontend and backend skills to build complete web solutions, designing user interfaces and server-side logic for seamless interaction and meeting user and business needs.",
       points: [
@@ -49,20 +48,20 @@ function Services() {
     },
   ];
 
-  // Card container variants
-  const containerVariants = {
+  // Animation variants
+  const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
+        when: "beforeChildren",
       },
     },
   };
 
-  // Individual card variants
-  const cardVariants = {
-    hidden: { y: 50, opacity: 0 },
+  const cardItem = {
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -73,15 +72,8 @@ function Services() {
       },
     },
     hover: {
-      y: -10,
-      scale: 1.02,
-      boxShadow:
-        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 10,
-      },
+      y: -5,
+      transition: { duration: 0.2 },
     },
   };
 
@@ -89,17 +81,17 @@ function Services() {
     <CommonPage Heading={"Services"} SubHeading={"What I Offer"}>
       <motion.div
         ref={servicesRef}
-        className="px-4 sm:px-2 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-6"
-        variants={containerVariants}
+        className="px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        variants={container}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
         {servicesTypes.map((service, index) => (
           <motion.div
-            key={index}
-            variants={cardVariants}
+            key={`service-${index}`}
+            variants={cardItem}
             whileHover="hover"
-            className="overflow-hidden"
+            className="relative"
           >
             <ServiceCard
               title={service.title}
@@ -108,6 +100,7 @@ function Services() {
                 description: service.description,
                 points: service.points,
               }}
+              index={index}
             />
           </motion.div>
         ))}

@@ -1,8 +1,12 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { projectTypes } from './PortfolioGrid';
 
-const ProjectCard = ({ project, index, isInView, hoveredProject, setHoveredProject, onViewDetails }) => {
+const ProjectCard = ({ project, index, hoveredProject, setHoveredProject, onViewDetails }) => {
+  // Add individual ref and inView state for each card
+  const cardRef = useRef(null);
+  const isCardInView = useInView(cardRef, { once: true, amount: 0.2 });
+
   // Create a shortened description (consistent length across all cards)
   const shortDescription = project.description.length > 110 
     ? project.description.substring(0, 110) + '...' 
@@ -10,9 +14,10 @@ const ProjectCard = ({ project, index, isInView, hoveredProject, setHoveredProje
 
   return (
     <motion.div
+      ref={cardRef}
       className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full"
       initial={{ y: 50, opacity: 0 }}
-      animate={isInView ? { 
+      animate={isCardInView ? { 
         y: 0, 
         opacity: 1,
         transition: { 

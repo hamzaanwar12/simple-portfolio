@@ -39,7 +39,7 @@ function CommonPage({ Heading, SubHeading, children }) {
   return (
     <motion.div
       ref={sectionRef}
-      className="my-16 flex flex-col gap-y-[4rem] items-center px-4 max-w-4xl mx-auto"
+      className="my-16 flex flex-col gap-y-[2rem] items-center px-4 max-w-4xl mx-auto"
       variants={containerVariants}
       initial="hidden"
       animate={isInView || hasAnimated ? "visible" : "hidden"}

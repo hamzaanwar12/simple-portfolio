@@ -47,7 +47,7 @@ function StatBox({ title, icon, numbers, numberstatement, index }) {
       </motion.h1>
 
       <motion.div
-        className="text-2xl font-bold text-secondary dark:text-cyan-400 flex items-baseline gap-1"
+        className="text-xl font-semibold text-secondary dark:text-cyan-400 flex items-baseline gap-1"
         animate={{
           scale: hovered ? 1.1 : 1,
         }}

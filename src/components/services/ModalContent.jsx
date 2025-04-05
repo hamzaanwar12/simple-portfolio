@@ -52,7 +52,8 @@ function ModalContent({ title, description, points }) {
             whileHover={{ x: 5 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
-            <RiVerifiedBadgeFill className="text-blue-500 text-2xl mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+            {/* <RiVerifiedBadgeFill className="text-blue-500 text-2xl mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" /> */}
+            <RiVerifiedBadgeFill className="text-gray-500 text-2xl mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
             <h3 className="text-gray-700 font-normal text-lg">{point}</h3>
           </motion.div>
         ))}

@@ -1,4 +1,3 @@
-// Testimonials.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import CommonPage from '../common';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,35 +9,35 @@ const testimonials = [
     name: "Abdullah",
     image: "/images/testimonials/abdullah.jpg", // Replace with your image path
     role: "Frontend Developer",
-    text: "If you want a JavaScript developer who truly cares about your project, look no further than Ali. He was professional, responsive, and always went the extra mile to ensure success."
+    text: "If you want a JavaScript developer who truly cares about your project, look no further than Hamza. He was professional, responsive, and always went the extra mile to ensure success."
   },
   {
     id: 2,
     name: "Mohsin",
     image: "/images/testimonials/mohsin.jpg", // Replace with your image path
     role: "Project Manager",
-    text: "I recently had a project developed with Ali, and I'm highly impressed with his work. Their attention to detail, responsiveness, and technical expertise exceeded my expectations. I highly recommend his services for any development needs."
+    text: "I recently had a project developed with Hamza, and I'm highly impressed with his work. Their attention to detail, responsiveness, and technical expertise exceeded my expectations. I highly recommend his services for any development needs."
   },
   {
     id: 3,
     name: "Sarah Johnson",
     image: "/images/testimonials/sarah.jpg", // Replace with your image path
     role: "UX Designer",
-    text: "Working with Ali was a pleasure. He brought our designs to life with perfect precision and added thoughtful improvements along the way. The code quality was excellent and well-documented."
+    text: "Working with Hamza was a pleasure. He brought our designs to life with perfect precision and added thoughtful improvements along the way. The code quality was excellent and well-documented."
   },
   {
     id: 4,
     name: "Michael Chen",
     image: "/images/testimonials/michael.jpg", // Replace with your image path
     role: "Startup Founder",
-    text: "Ali delivered our MVP ahead of schedule with all requirements met. His communication was clear and consistent throughout the project. We're already planning our next collaboration."
+    text: "Hamza delivered our MVP ahead of schedule with all requirements met. His communication was clear and consistent throughout the project. We're already planning our next collaboration."
   },
   {
     id: 5,
     name: "Priya Patel",
     image: "/images/testimonials/priya.jpg", // Replace with your image path
     role: "E-commerce Director",
-    text: "Our online store's performance improved significantly after Ali's optimization work. Page load times decreased by 40% and the checkout experience is now seamless. Highly recommended!"
+    text: "Our online store's performance improved significantly after Hamza's optimization work. Page load times decreased by 40% and the checkout experience is now seamless. Highly recommended!"
   }
 ];
 
@@ -47,6 +46,8 @@ function Testimonials() {
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const autoPlayRef = useRef(null);
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
   
   // Testimonials visible at one time (1 on mobile, 2 on larger screens)
   const [visibleCount, setVisibleCount] = useState(1);
@@ -65,6 +66,31 @@ function Testimonials() {
     
     // Cleanup
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Intersection Observer for entrance animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target); // Only trigger once
+        }
+      },
+      {
+        threshold: 0.2, // Trigger when 20% of the element is visible
+      }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
   }, []);
 
   // Auto play functionality
@@ -141,10 +167,48 @@ function Testimonials() {
     })
   };
 
+  // Container entrance animation
+  const containerVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 30
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  // Navigation buttons entrance animation
+  const controlsVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 20
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        delay: 0.3
+      }
+    }
+  };
+
   return (
     <CommonPage Heading={"My Clients Say"} SubHeading={"Testimonials"}>
-      <div 
+      <motion.div 
+        ref={sectionRef}
         className="w-full py-16"
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+        variants={containerVariants}
         onMouseEnter={pauseAutoPlay}
         onMouseLeave={resumeAutoPlay}
       >
@@ -213,7 +277,12 @@ function Testimonials() {
           </div>
 
           {/* Navigation buttons */}
-          <div className="flex justify-center mt-10">
+          <motion.div 
+            className="flex justify-center mt-10"
+            variants={controlsVariants}
+            initial="hidden"
+            animate={isVisible ? "visible" : "hidden"}
+          >
             {/* Previous button */}
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -256,9 +325,9 @@ function Testimonials() {
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </motion.button>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </CommonPage>
   );
 }
