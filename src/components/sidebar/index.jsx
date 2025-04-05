@@ -1,45 +1,47 @@
-import React from "react";
+import React, { useContext } from "react";
 import SideBarItem from "./sidebar-item";
 import { motion } from "framer-motion";
-// Importing a cohesive set of icons from Heroicons style
 import { HiHome, HiUser, HiCode, HiBriefcase, HiServer, HiMail } from "react-icons/hi";
+import { SideBarContext } from "../../context/sidebarContext";
 
 function Sidebar({ hideSidebar }) {
-  // Updated route array with recommended icons
-  const routes = [
+  const { scrollToSection, refs } = useContext(SideBarContext);
+
+  // Updated items array for section scrolling
+  const items = [
     {
-      to: "/",
       title: "Home",
       icon: <HiHome className="text-white text-2xl" />,
+      section: "home",
     },
     {
-      to: "/about",
       title: "About",
       icon: <HiUser className="text-white text-2xl" />,
+      section: "about",
     },
     {
-      to: "/skills",
       title: "Skills",
       icon: <HiCode className="text-white text-2xl" />,
+      section: "skills",
     },
     {
-      to: "/experience",
       title: "Experience",
       icon: <HiBriefcase className="text-white text-2xl" />,
+      section: "qualification", // Changed to match your component
     },
     {
-      to: "/services",
       title: "Services",
       icon: <HiServer className="text-white text-2xl" />,
+      section: "services",
     },
     {
-      to: "/contact",
       title: "Contact",
       icon: <HiMail className="text-white text-2xl" />,
+      section: "contact",
     },
   ];
 
-  // Animation variants for parent and children elements
+  // Animation variants (unchanged)
   const backdropVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -84,7 +86,6 @@ function Sidebar({ hideSidebar }) {
     }
   };
   
-  // Handle backdrop click to close sidebar
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       hideSidebar();
@@ -105,7 +106,7 @@ function Sidebar({ hideSidebar }) {
         className="font-sans pt-16 bg-gradient-to-b from-gray-800 to-gray-900 w-42 md:w-48 lg:w-64 h-screen shadow-lg shadow-black/30"
       >
         <div className="flex flex-col space-y-2 gap-y-3">
-          {routes.map((route, index) => (
+          {items.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: -20 }}
@@ -119,10 +120,12 @@ function Sidebar({ hideSidebar }) {
               }}
             >
               <SideBarItem
-                to={route.to}
-                title={route.title}
-                icon={route.icon}
-                handleSidebar={hideSidebar}
+                title={item.title}
+                icon={item.icon}
+                onClick={() => {
+                  scrollToSection(refs[`${item.section}Ref`]);
+                  hideSidebar();
+                }}
               />
             </motion.div>
           ))}
