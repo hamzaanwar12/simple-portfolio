@@ -28,7 +28,7 @@ export default function Layout({ children }) {
         setShowStairAnimation(false);
         setHasAnimated(true);
         sessionStorage.setItem("hasAnimated", "true");
-      }, 3000); // Adjust this timeout to match your animation duration
+      }, 7500); // Adjust this timeout to match your animation duration
 
       return () => clearTimeout(timer);
     }

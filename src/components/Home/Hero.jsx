@@ -86,7 +86,7 @@ function Hero() {
             variants={itemVariants}
           >
             <motion.div 
-              className="bg-title w-12 h-[3px]"
+              className="bg-gray-600 w-12 h-[3px]"
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}

@@ -1,18 +1,19 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 import { SideBarContext } from "../context/sidebarContext";
 import { Hero } from "../components/Home";
-import { Intro } from "../components/About";
+import { Intro, ScrollToTop } from "../components/About";
 import SkillPage from "../components/skills";
 import { Services } from "../components/services";
 import { QualificationPage } from "../components/qualification";
 import { Portfolio as PortfolioPage } from "../components/Potfolio";
 import Testimonials from "../components/Testimonials";
-import Contact from "../components/Contact";
+import Contact, { Social } from "../components/Contact";
 import Footer from "../components/Footer";
 import Layout from "../components/layout";
 export {
   Hero,
   Intro,
+  ScrollToTop,
   SkillPage,
   Services,
   QualificationPage,
@@ -21,7 +22,6 @@ export {
   Contact,
   Footer,
 };
-
 
 function Main() {
   const { refs } = useContext(SideBarContext);
@@ -53,6 +53,9 @@ function Main() {
         <Contact />
       </div>
       <Footer />
+
+      <Social></Social>
+      <ScrollToTop />
     </Layout>
   );
 }

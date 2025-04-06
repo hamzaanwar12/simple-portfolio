@@ -60,7 +60,8 @@ function Intro() {
           }}
         >
           <motion.img
-            className="object-cover w-[225px] h-[225px] sm:w-[250px] sm:h-[250px] md:w-[300px] md:h-[300px] rounded-2xl shadow-xl border-4 border-white dark:border-gray-800"
+            // className="object-cover w-[225px] h-[225px] sm:w-[250px] sm:h-[250px] md:w-[300px] md:h-[300px] rounded-2xl shadow-xl border-4 border-white dark:border-gray-800"
+            className="object-contain w-[225px] h-[225px] sm:w-[250px] sm:h-[250px] md:w-[300px] md:h-[300px] rounded-2xl shadow-xl border-4 border-white dark:border-gray-800"
             src={checkSrc}
             alt="M Hamza"
             whileHover={{ 

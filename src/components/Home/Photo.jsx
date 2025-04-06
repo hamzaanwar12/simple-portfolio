@@ -72,7 +72,8 @@ const Photo = () => {
 
       {/* Image */}
       <img
-        className="object-cover rounded-full"
+        // className="object-cover rounded-full"
+        className="object-contain rounded-full"
         src={checkSrc}
         alt=""
         style={{ 

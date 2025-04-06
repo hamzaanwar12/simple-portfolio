@@ -249,12 +249,12 @@ const ContactSection = () => {
             className="flex flex-col space-y-4"
             variants={containerVariants}
           >
-            <motion.h2
+            {/* <motion.h2
               className="text-gray-800 font-medium text-3xl mb-6 text-center md:text-left"
               variants={titleVariants}
             >
               Talk to Me
-            </motion.h2>
+            </motion.h2> */}
 
             {contactOptions.map((option, index) => (
               <motion.div
